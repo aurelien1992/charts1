@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>NYYEARS</title>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.3.5/tabletop.min.js"></script>
+		<script src="https://cdn.rawgit.com/CooperUnion/javascript-learning/master/tabletop-simple.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDD3o_vzkcWmw4-yDtuFZ0F4lioqWn8eU8"></script>
+    <script src="http://cooper-union-maps-proxy.herokuapp.com/js/draw.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<script>
+			$(document).ready(function(){
+					//configure spreadsheet
+				var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1F44x7CJBqr_0_EZoIviUg_ZJ7Ioxw8U9Zg6AHIqC0yg/pubhtml';
+				getSpreadsheetJSON(public_spreadsheet_url, function(response){
+					console.log(response);
+					var avg = 0;
+          for (i=0; i<response.length; i++){
+            $("<h1>"+response[i].years +"</h1>").appendTo(".numbers");
+						avg += response[i].years / response.length;
+          };
+							console.log(avg);
+							$("<h1>"+avg+"</h1>").appendTo(".white");
+							$(".white").click(function() {
+  							$(".white").toggleClass("answer");
+								});
+
+
+
+
+
+
+        //  var favoriteFood = response[i].food ;
+        //  $.getJSON("http://cooper-union-instagram-proxy.herokuapp.com/search/tag/\'favoriteFood\'", function(response){
+        //      console.log(response);
+            });
+            //.css({
+            //  "backgroundColor":response[0].background,
+            //  "fontSize":response[0].size,
+            //  "color":response[0].color
+          //  });
+
+
+
+						$(function () {
+								    $('#container').highcharts({
+								        chart: {
+								            plotBackgroundColor: null,
+								            plotBorderWidth: 0,
+								            plotShadow: false
+								        },
+								        title: {
+								            text: 'Years in NY',
+								            align: 'center',
+								            verticalAlign: 'middle',
+								            y: 40
+								        },
+								        tooltip: {
+								            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+								        },
+								        plotOptions: {
+								            pie: {
+								                dataLabels: {
+								                    enabled: true,
+								                    distance: -50,
+								                    style: {
+								                        fontWeight: 'bold',
+								                        color: 'white',
+								                        textShadow: '0px 1px 2px black'
+								                    }
+								                },
+								                startAngle: -90,
+								                endAngle: 90,
+								                center: ['50%', '75%']
+								            }
+								        },
+								        series: [{
+								            type: 'pie',
+								            name: 'Browser share',
+								            innerSize: '50%',
+								            data: [
+								                ['1',   14.2],
+								                ['2',   42.8],
+								                ['3', 28.5],
+								                ['7',    14.2],
+								                {
+								                    name: 'Proprietary or Undetectable',
+								                    y: 0.2,
+								                    dataLabels: {
+								                        enabled: false
+								                    }
+								                }
+								            ]
+								        }]
+								    });
+								});
+
+
+              });
+
+
+
+
+
+
+
+
+
+		</script>
+		<style>
+		body {
+			background-image: url(NY.jpg);
+			background-repeat: no-repeat;
+		}
+		img {
+			margin : 50px;
+			position: relative;
+		}
+		.white {
+			height : 80px;
+			width : 50px;
+			background-color: white;
+			margin : 300px;
+			padding: 10px;
+			padding-left: 50px;
+			font-family: sans-serif;
+			position: absolute;
+			-webkit-transition: width 2s, opacity 2s;
+			opacity : 0;
+		}
+		.answer {
+			width : 500px;
+			opacity: 1;
+		}
+		.question {
+			width : 400px;
+			padding: 20px;
+			padding-left: 50px;
+			position: absolute;
+		}
+		h2 {
+			font-family: sans-serif;
+			text-decoration: overline;
+		}
+		h3 {
+			font-family: sans-serif;
+			color: white;
+			font-size: 40px;
+			position: absolute;
+			margin: 330px;
+		}
+		.numbers {
+			height : 30px;
+			width : 1000px;
+			margin : 100px;
+			margin-top: 200px;
+			padding: 10px;
+			padding-left: 50px;
+			font-family: sans-serif;
+			position: absolute;
+			font-size: 10px;
+			color: white;
+		}
+
+		#container {
+			position: relative;
+			left: 100px;
+		}
+		</style>
+
+	</head>
+	<body>
+		<div class="question">
+			<h2> How many years in average have people of this room been living in New York ? </h2>
+		</div>
+		<div class="questionMark"><h3>?</h3></div>
+		<div class="white"></div>
+		<div class="numbers"></div>
+		<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+
+	</body>
+</html>
